@@ -2,6 +2,9 @@
 /dist
 /node_modules
 /build
+/entities
+/dto
+/src/entity
 
 # Logs
 logs
