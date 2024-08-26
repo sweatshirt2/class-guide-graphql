@@ -10,20 +10,46 @@ export default class LecturerService {
   }
 
   async findAll() {
-    return this.databaseService.lecturer.findMany({
+    const lecturers = await this.databaseService.lecturer.findMany({
       include: {
         courses: true,
       },
     });
+
+    return lecturers.map(lecturer => {
+      return {
+        id: lecturer.id,
+        fname: lecturer.fname,
+        lname: lecturer.lname,
+        courses: lecturer.courses.map(course => {
+          return {
+            name: course.name,
+            id: course.id
+          };
+        })
+      };
+    });
   }
 
   async findOne(id: number) {
-    return this.databaseService.lecturer.findUnique({ 
+    const lecturer = await this.databaseService.lecturer.findUnique({ 
       where: { id },
       include: {
         courses: true,
       },
     });
+
+    return {
+      id: lecturer.id,
+      fname: lecturer.fname,
+      lname: lecturer.lname,
+      courses: lecturer.courses.map(course => {
+        return {
+          name: course.name,
+          id: course.id
+        };
+      })
+    };
   }
 
   async update(id: number, updateLecturerDto: Prisma.LecturerUpdateInput) {
