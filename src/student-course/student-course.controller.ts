@@ -1,7 +1,9 @@
-import { Body, Controller, Delete, Param, Post } from '@nestjs/common';
-import StudentCourseService from './student-course.service';
+import { Body, Controller, Delete, Param, Post, UseInterceptors } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
+import StudentCourseService from './student-course.service';
+import PerformanceInterceptor from 'src/performance/performance.interceptor';
 
+@UseInterceptors(PerformanceInterceptor)
 @Controller('student-course')
 export default class StudentCourseController {
   constructor(private readonly studentCourseService: StudentCourseService) {}

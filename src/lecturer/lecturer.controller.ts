@@ -1,5 +1,5 @@
 // eslint-disable-next-line prettier/prettier
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe } from '@nestjs/common';
 import LecturerService from './lecturer.service';
 import { Prisma } from '@prisma/client';
 
@@ -18,20 +18,20 @@ export default class LecturerController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.lecturerService.findOne(+id);
+  findOne(@Param('id', ParseIntPipe) id: number) {
+    return this.lecturerService.findOne(id);
   }
 
   @Patch(':id')
   update(
-    @Param('id') id: string,
+    @Param('id', ParseIntPipe) id: number,
     @Body() updateLecturerDto: Prisma.LecturerUpdateInput,
   ) {
-    return this.lecturerService.update(+id, updateLecturerDto);
+    return this.lecturerService.update(id, updateLecturerDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.lecturerService.remove(+id);
+  remove(@Param('id', ParseIntPipe) id: number) {
+    return this.lecturerService.remove(id);
   }
 }

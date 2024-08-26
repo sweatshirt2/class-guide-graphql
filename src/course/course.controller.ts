@@ -1,12 +1,14 @@
 // eslint-disable-next-line prettier/prettier
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import CourseService from './course.service';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
+import AuthenticationGuard from 'src/guards/authentication.guard';
+import CourseService from './course.service';
 
 @Controller('course')
 export default class CourseController {
   constructor(private readonly courseService: CourseService) {}
 
+  @UseGuards(AuthenticationGuard)
   @Post()
   create(@Body() createCourseDto: Prisma.CourseCreateInput) {
     return this.courseService.create(createCourseDto);

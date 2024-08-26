@@ -25,6 +25,11 @@ export default class CourseService {
       return {
         id: course.id,
         name: course.name,
+        lecturer: {
+          id: course.lecturer.id,
+          fname: course.lecturer.fname,
+          lname: course.lecturer.lname,
+        },
         students: course.students.map(student => {
           return {
             id: student.student.id,
@@ -52,6 +57,11 @@ export default class CourseService {
     return {
       id: course.id,
       name: course.name,
+      lecturer: {
+        id: course.lecturer.id,
+        fname: course.lecturer.fname,
+        lname: course.lecturer.lname,
+      },
       students: course.students.map(student => {
         return {
           id: student.student.id,
